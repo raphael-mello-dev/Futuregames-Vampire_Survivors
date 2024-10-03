@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class EnemyBase : MonoBehaviour
@@ -12,12 +10,6 @@ public abstract class EnemyBase : MonoBehaviour
     protected float speed;
     protected int attack;
 
-    public enum ChaseType
-    {
-        OnlyOnRadius,
-        OnceDetected,
-        AlwaysChase
-    }
     public Transform Player {  get; private set; }
 
     [Header("Player Detection")]
@@ -25,6 +17,13 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] protected float detectionRadius;
     [SerializeField] protected ChaseType chaseType;
     private bool hasBeenDetected;
+
+    public enum ChaseType
+    {
+        OnlyOnRadius,
+        OnceDetected,
+        AlwaysChase
+    }
 
     protected void EnemyConfig()
     {
@@ -79,13 +78,13 @@ public abstract class EnemyBase : MonoBehaviour
         transform.position += dir * speed * Time.deltaTime;
     }
 
-    protected virtual void OnAttack()
+    public virtual void OnAttack()
     {
 
     }
 
-    protected virtual void OnTakeDamage(int damageAmount)
+    public virtual void OnTakeDamage(int damageAmount)
     {
-
+        gameObject.SetActive(false);
     }
 }

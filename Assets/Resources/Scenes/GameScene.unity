@@ -369,6 +369,19 @@ MonoBehaviour:
   distanceFromPlayer: 1.5
   rotationSpeed: 20
   offset: -90
+--- !u!114 &566595666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 395611921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35059e3b060c3fd48aebff08b1f867cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 3
 --- !u!1 &676663273
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,6 +413,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &870422266 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6737581344256442231, guid: fadbe6b478030434da20d60eb76e4862, type: 3}
+  m_PrefabInstance: {fileID: 4337391932884795055}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &870422267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870422266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd3c6ad5fd32f36498ac2ce6bfc0a9e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackDamage: 0
 --- !u!1 &1009109150
 GameObject:
   m_ObjectHideFlags: 3
@@ -733,8 +764,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basicEnemiesList: []
   capacity: 10
-  spawnDistance: 0
-  timeToSpawn: 0
+  spawnDistance: 3
+  timeToSpawn: 1
 --- !u!1001 &4337391932884795055
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -800,6 +831,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8635413430774775667, guid: fadbe6b478030434da20d60eb76e4862, type: 3}
       insertIndex: -1
       addedObject: {fileID: 566595662}
+    - targetCorrespondingSourceObject: {fileID: 8635413430774775667, guid: fadbe6b478030434da20d60eb76e4862, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 566595666}
+    - targetCorrespondingSourceObject: {fileID: 6737581344256442231, guid: fadbe6b478030434da20d60eb76e4862, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 870422267}
   m_SourcePrefab: {fileID: 100100000, guid: fadbe6b478030434da20d60eb76e4862, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

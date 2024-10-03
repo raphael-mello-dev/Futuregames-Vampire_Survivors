@@ -9,7 +9,6 @@ public class EnemiesManager : MonoBehaviour
     [SerializeField] private float spawnDistance;
     [SerializeField] private float timeToSpawn;
     private float rewindTime;
-    private int enemiesSpawnCount;
 
 
     void Start()
@@ -21,13 +20,20 @@ public class EnemiesManager : MonoBehaviour
             basicEnemiesList.Add(enemy);
         }
 
-        enemiesSpawnCount = 0;
         rewindTime = timeToSpawn;
     }
 
     void Update()
     {
         SpawnBasicEnemy();
+        OnMove();
+
+    }
+
+    void OnMove()
+    {
+        foreach (GameObject enemy in basicEnemiesList)
+            enemy.GetComponent<BasicEnemy>().OnMove();
     }
 
     void SpawnBasicEnemy()
@@ -36,26 +42,22 @@ public class EnemiesManager : MonoBehaviour
 
         if (timeToSpawn <= 0)
         {
-            if (enemiesSpawnCount < basicEnemiesList.Count)
+            foreach (GameObject enemy in basicEnemiesList)
             {
-                if (!basicEnemiesList[enemiesSpawnCount].activeInHierarchy)
+                if (!enemy.activeInHierarchy) // Check if the enemy is inactive
                 {
                     Vector3 spawnPosition = GetValidSpawnPosition();
 
                     if (spawnPosition != Vector3.zero)
                     {
-                        basicEnemiesList[enemiesSpawnCount].transform.position = spawnPosition;
-                        basicEnemiesList[enemiesSpawnCount].SetActive(true);
-                        enemiesSpawnCount++;
+                        enemy.transform.position = spawnPosition; // Set the position
+                        enemy.SetActive(true); // Activate the enemy
+                        break; // Exit after spawning one enemy
                     }
                 }
             }
-            else
-            {
-                enemiesSpawnCount = 0;
-            }
 
-            timeToSpawn = rewindTime;
+            timeToSpawn = rewindTime; // Reset the spawn timer
         }
     }
 

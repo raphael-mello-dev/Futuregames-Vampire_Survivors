@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BasicEnemy : EnemyBase
@@ -8,17 +5,22 @@ public class BasicEnemy : EnemyBase
     void Awake()
     {
         identifier = "basicEnemy";
+
         EnemyConfig();
     }
 
-    void Update()
+    public override void OnTakeDamage(int damageAmount)
     {
-        OnMove();
+        base.OnTakeDamage(damageAmount);
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, detectionRadius);
+        var obj = other.gameObject;
+
+        if (obj.CompareTag("Player"))
+        {
+            obj.GetComponent<PlayerHealth>().OnTakeDamage(attack);
+        }
     }
 }
