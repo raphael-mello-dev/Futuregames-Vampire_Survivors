@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BasicEnemy : EnemyBase
 {
-    void Start()
+    void Awake()
     {
         identifier = "basicEnemy";
         EnemyConfig();

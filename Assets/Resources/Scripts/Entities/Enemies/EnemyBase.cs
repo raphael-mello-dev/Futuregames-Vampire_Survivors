@@ -18,9 +18,9 @@ public abstract class EnemyBase : MonoBehaviour
         OnceDetected,
         AlwaysChase
     }
+    public Transform Player {  get; private set; }
 
     [Header("Player Detection")]
-    [SerializeField] protected Transform player;
     [SerializeField] protected LayerMask playerLayer;
     [SerializeField] protected float detectionRadius;
     [SerializeField] protected ChaseType chaseType;
@@ -34,6 +34,8 @@ public abstract class EnemyBase : MonoBehaviour
         health = enemyData.health;
         speed = enemyData.speed;
         attack = enemyData.attack;
+
+        Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 
         hasBeenDetected = false;
     }
@@ -73,7 +75,7 @@ public abstract class EnemyBase : MonoBehaviour
 
     void OnChaseDown()
     {
-        Vector3 dir = -(transform.position - player.transform.position);
+        Vector3 dir = -(transform.position - Player.position);
         transform.position += dir * speed * Time.deltaTime;
     }
 
