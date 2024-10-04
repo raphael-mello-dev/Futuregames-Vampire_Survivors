@@ -5,6 +5,7 @@ public class MainMenu : MonoBehaviour
 {
     [Header("Canvas")]
     [SerializeField] private GameObject menuCanvas;
+    [SerializeField] private GameObject GameplayCanvas;
 
     [Header("Panels")]
     [SerializeField] private GameObject menuPanel;
@@ -28,11 +29,13 @@ public class MainMenu : MonoBehaviour
     private void OnEnable()
     {
         menuPanel.SetActive(true);
+        GameplayCanvas.SetActive(false);
     }
 
     private void OnDisable()
     {
         menuPanel.SetActive(false);
+        GameplayCanvas.SetActive(true);
     }
 
     void OnClickPlay()

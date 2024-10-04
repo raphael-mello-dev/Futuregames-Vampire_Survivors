@@ -26,7 +26,6 @@ public class EnemiesManager : MonoBehaviour
     {
         if(GameManager.Instance.stateMachine.currentState.ToString() == "GameplayState")
         {
-            Debug.Log("Working");
             SpawnBasicEnemy();
             OnMove();
         }

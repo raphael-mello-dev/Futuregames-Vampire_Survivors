@@ -260,6 +260,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6192258142772660535, guid: 4582589c7c45d92448e6b7de9cebc095, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7107985668900446389, guid: 4582589c7c45d92448e6b7de9cebc095, type: 3}
+      propertyPath: GameplayCanvas
+      value: 
+      objectReference: {fileID: 2129261820}
     - target: {fileID: 7467764053563322499, guid: 4582589c7c45d92448e6b7de9cebc095, type: 3}
       propertyPath: m_Pivot.x
       value: 0
