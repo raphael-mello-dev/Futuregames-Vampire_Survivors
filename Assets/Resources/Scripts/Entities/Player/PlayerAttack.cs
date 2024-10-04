@@ -10,7 +10,8 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-        Attack();
+        if (GameManager.Instance.stateMachine.currentState.ToString() == "GameplayState")
+            Attack();
     }
 
     void Attack()

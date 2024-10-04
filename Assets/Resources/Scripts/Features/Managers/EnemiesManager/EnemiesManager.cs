@@ -10,7 +10,6 @@ public class EnemiesManager : MonoBehaviour
     [SerializeField] private float timeToSpawn;
     private float rewindTime;
 
-
     void Start()
     {
         for (int i = 0; i < capacity; i++)
@@ -25,9 +24,12 @@ public class EnemiesManager : MonoBehaviour
 
     void Update()
     {
-        SpawnBasicEnemy();
-        OnMove();
-
+        if(GameManager.Instance.stateMachine.currentState.ToString() == "GameplayState")
+        {
+            Debug.Log("Working");
+            SpawnBasicEnemy();
+            OnMove();
+        }
     }
 
     void OnMove()
@@ -44,20 +46,20 @@ public class EnemiesManager : MonoBehaviour
         {
             foreach (GameObject enemy in basicEnemiesList)
             {
-                if (!enemy.activeInHierarchy) // Check if the enemy is inactive
+                if (!enemy.activeInHierarchy)
                 {
                     Vector3 spawnPosition = GetValidSpawnPosition();
 
                     if (spawnPosition != Vector3.zero)
                     {
-                        enemy.transform.position = spawnPosition; // Set the position
-                        enemy.SetActive(true); // Activate the enemy
-                        break; // Exit after spawning one enemy
+                        enemy.transform.position = spawnPosition;
+                        enemy.SetActive(true);
+                        break;
                     }
                 }
             }
 
-            timeToSpawn = rewindTime; // Reset the spawn timer
+            timeToSpawn = rewindTime;
         }
     }
 

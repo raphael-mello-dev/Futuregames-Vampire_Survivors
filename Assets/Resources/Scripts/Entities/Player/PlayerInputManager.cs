@@ -2,13 +2,12 @@ using UnityEngine;
 
 public class PlayerInputManager
 {
-    private Controls controls;
+    public Controls Controls { get; private set; }
 
-    public Vector2 movement => controls.Gameplay.Movement.ReadValue<Vector2>().normalized;
+    public Vector2 movement => Controls.Gameplay.Movement.ReadValue<Vector2>().normalized;
 
     public PlayerInputManager()
     {
-        controls = new Controls();
-        controls.Gameplay.Enable();
+        Controls = new Controls();
     }
 }

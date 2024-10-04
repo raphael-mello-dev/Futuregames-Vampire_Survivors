@@ -25,9 +25,19 @@ public class MainMenu : MonoBehaviour
         exitButton.onClick.AddListener(OnClickExit);
     }
 
+    private void OnEnable()
+    {
+        menuPanel.SetActive(true);
+    }
+
+    private void OnDisable()
+    {
+        menuPanel.SetActive(false);
+    }
+
     void OnClickPlay()
     {
-        menuCanvas.SetActive(false);
+        GameManager.Instance.stateMachine.TransitionTo<GameplayState>();
     }
 
     void OnClickScores()

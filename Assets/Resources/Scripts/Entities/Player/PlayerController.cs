@@ -6,10 +6,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    protected PlayerInputManager inputManager;
+    public PlayerInputManager InputManager { get; private set; }
 
     void Start()
     {
-        inputManager = new PlayerInputManager();
+        InputManager = new PlayerInputManager();
     }
 }
