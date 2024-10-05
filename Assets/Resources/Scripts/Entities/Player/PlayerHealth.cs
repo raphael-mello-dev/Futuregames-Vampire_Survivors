@@ -3,17 +3,24 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int health;
+    [SerializeField] HUDManager hudManager;
+
+    public float maxHealth;
+    public float health;
 
     public void OnTakeDamage(int damageAmount)
     {
-        if (health > 1)
+        if ((health - damageAmount) > 0)
         {
             StartCoroutine(nameof(DamageVisual));
             health -= damageAmount;
+            hudManager.LifeBarDisplay((health/maxHealth));
         }
         else
+        {
+            hudManager.LifeBarDisplay(0);
             gameObject.SetActive(false);
+        }
 
     }
 

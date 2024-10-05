@@ -1,16 +1,14 @@
-using UnityEngine;
-using TMPro;
 using System;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class HUDManager : MonoBehaviour
 {
-    private void Start()
-    {
-        
-    }
+    [SerializeField] private Image lifeBar;
 
-    private void Update()
+    public void LifeBarDisplay(float lifeAmount)
     {
-        
+        lifeBar.fillAmount = lifeAmount;
     }
 }

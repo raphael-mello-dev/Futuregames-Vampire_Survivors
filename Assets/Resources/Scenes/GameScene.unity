@@ -1000,6 +1000,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35059e3b060c3fd48aebff08b1f867cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hudManager: {fileID: 812497212}
+  maxHealth: 10
   health: 10
 --- !u!1 &613609310
 GameObject:
@@ -1861,6 +1863,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 675b1101de956ca4cadbc60461021d63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerHealth: {fileID: 566595666}
+  lifeBar: {fileID: 527819039}
 --- !u!1 &870422266 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6737581344256442231, guid: fadbe6b478030434da20d60eb76e4862, type: 3}
