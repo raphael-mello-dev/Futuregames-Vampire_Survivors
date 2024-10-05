@@ -14,6 +14,11 @@ public class BasicEnemy : EnemyBase
         base.OnTakeDamage(damageAmount);
     }
 
+    protected override void Death()
+    {
+        base.Death();
+    }
+
     private void OnCollisionEnter2D(Collision2D other)
     {
         var obj = other.gameObject;

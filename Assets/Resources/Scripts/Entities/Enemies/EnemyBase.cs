@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public abstract class EnemyBase : MonoBehaviour
@@ -78,13 +79,29 @@ public abstract class EnemyBase : MonoBehaviour
         transform.position += dir * speed * Time.deltaTime;
     }
 
-    public virtual void OnAttack()
-    {
-
-    }
+    public virtual void OnAttack() { }
 
     public virtual void OnTakeDamage(int damageAmount)
     {
+        if (damageAmount >= health)
+            Death();
+        else
+        {
+            health -= damageAmount;
+            StartCoroutine(nameof(DamageVisual));
+        }
+    }
+
+    private IEnumerator DamageVisual()
+    {
+        GetComponent<SpriteRenderer>().color = Color.HSVToRGB(139f, 0, 0);
+        yield return new WaitForSecondsRealtime(0.5f);
+        GetComponent<SpriteRenderer>().color = Color.white;
+    }
+
+    protected virtual void Death()
+    {
+        health = enemyData.health;
         gameObject.SetActive(false);
     }
 }
