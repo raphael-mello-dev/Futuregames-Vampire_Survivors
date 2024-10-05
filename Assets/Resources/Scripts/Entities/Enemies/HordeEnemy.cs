@@ -2,11 +2,18 @@ using UnityEngine;
 
 public class HordeEnemy : EnemyBase
 {
+    private DropsManager dropsManager;
+
     void Awake()
     {
         identifier = "hordeEnemy";
 
         EnemyConfig();
+    }
+
+    private void Start()
+    {
+        dropsManager = GameObject.FindObjectOfType<DropsManager>();
     }
 
     public override void OnTakeDamage(int damageAmount)
@@ -16,6 +23,7 @@ public class HordeEnemy : EnemyBase
 
     protected override void Death()
     {
+        dropsManager.SpawnMediumXP(transform.position);
         base.Death();
     }
 

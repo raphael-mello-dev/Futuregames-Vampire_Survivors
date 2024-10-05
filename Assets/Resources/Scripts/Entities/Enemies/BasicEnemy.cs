@@ -2,11 +2,18 @@ using UnityEngine;
 
 public class BasicEnemy : EnemyBase
 {
+    private DropsManager dropsManager;
+
     void Awake()
     {
         identifier = "basicEnemy";
 
         EnemyConfig();
+    }
+
+    private void Start()
+    {
+        dropsManager = GameObject.FindObjectOfType<DropsManager>();
     }
 
     public override void OnTakeDamage(int damageAmount)
@@ -16,6 +23,7 @@ public class BasicEnemy : EnemyBase
 
     protected override void Death()
     {
+        dropsManager.SpawnSmallXP(transform.position);
         base.Death();
     }
 
