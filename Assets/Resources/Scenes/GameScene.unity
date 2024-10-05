@@ -1081,7 +1081,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.24143751, y: 0.823}
   m_AnchorMax: {x: 0.7725625, y: 0.9084074}
-  m_AnchoredPosition: {x: -13.4999695, y: 5}
+  m_AnchoredPosition: {x: -13.5, y: 5}
   m_SizeDelta: {x: -19, y: -13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &616381192
@@ -2995,7 +2995,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   basicEnemiesList: []
-  capacity: 10
+  hordeEnemiesList: []
+  basicEnemyCount: 15
+  hordeEnemyCount: 5
   spawnDistance: 3
   timeToSpawn: 1
 --- !u!1 &1747363732

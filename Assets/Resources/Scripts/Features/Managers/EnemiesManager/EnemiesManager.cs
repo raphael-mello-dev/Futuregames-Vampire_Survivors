@@ -4,7 +4,9 @@ using UnityEngine;
 public class EnemiesManager : MonoBehaviour
 {
     [SerializeField] private List<GameObject> basicEnemiesList;
-    [SerializeField] private int capacity;
+    [SerializeField] private List<GameObject> hordeEnemiesList;
+    [SerializeField] private int basicEnemyCount;
+    [SerializeField] private int hordeEnemyCount;
 
     [SerializeField] private float spawnDistance;
     [SerializeField] private float timeToSpawn;
@@ -12,14 +14,21 @@ public class EnemiesManager : MonoBehaviour
 
     void Start()
     {
-        for (int i = 0; i < capacity; i++)
+        for (int i = 0; i < basicEnemyCount; i++)
         {
-            GameObject enemy = Instantiate(Resources.Load<GameObject>("Prefabs/BasicEnemy"), Vector3.zero, Quaternion.identity, gameObject.transform);
-            enemy.SetActive(false);
-            basicEnemiesList.Add(enemy);
+            GameObject basicEnemy = Instantiate(Resources.Load<GameObject>("Prefabs/BasicEnemy"), Vector3.zero, Quaternion.identity, gameObject.transform);
+            basicEnemy.SetActive(false);
+            basicEnemiesList.Add(basicEnemy);
         }
 
-        rewindTime = timeToSpawn;
+        for (int i = 0; i < hordeEnemyCount; i++)
+        {
+            GameObject hordeEnemy = Instantiate(Resources.Load<GameObject>("Prefabs/HordeEnemy"), Vector3.zero, Quaternion.identity, gameObject.transform);
+            hordeEnemy.SetActive(false);
+            hordeEnemiesList.Add(hordeEnemy);
+        }
+
+            rewindTime = timeToSpawn;
     }
 
     void Update()
@@ -35,15 +44,33 @@ public class EnemiesManager : MonoBehaviour
     {
         foreach (GameObject enemy in basicEnemiesList)
             enemy.GetComponent<BasicEnemy>().OnMove();
+
+        foreach (GameObject enemy in hordeEnemiesList)
+            enemy.GetComponent<HordeEnemy>().OnMove();
     }
 
     void SpawnBasicEnemy()
     {
         timeToSpawn -= Time.deltaTime;
 
+        foreach (GameObject enemy in basicEnemiesList)
+        {
+            if (!enemy.activeInHierarchy)
+            {
+                Vector3 spawnPosition = GetValidSpawnPosition();
+
+                if (spawnPosition != Vector3.zero)
+                {
+                    enemy.transform.position = spawnPosition;
+                    enemy.SetActive(true);
+                    break;
+                }
+            }
+        }
+
         if (timeToSpawn <= 0)
         {
-            foreach (GameObject enemy in basicEnemiesList)
+            foreach (GameObject enemy in hordeEnemiesList)
             {
                 if (!enemy.activeInHierarchy)
                 {

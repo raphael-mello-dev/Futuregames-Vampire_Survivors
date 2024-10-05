@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 5973447940539617180}
   - component: {fileID: 2765352816822954723}
   - component: {fileID: 4096356993058377107}
+  - component: {fileID: 6263399373817058108}
   m_Layer: 0
   m_Name: HordeEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -149,6 +150,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &6263399373817058108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7249096167379776162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f107a5abb6b3d545945377b5e8d9601, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  detectionRadius: 0
+  chaseType: 2
 --- !u!1 &8548267239209773894
 GameObject:
   m_ObjectHideFlags: 0

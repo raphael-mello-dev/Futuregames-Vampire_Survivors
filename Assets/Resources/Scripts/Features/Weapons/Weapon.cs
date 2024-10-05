@@ -8,7 +8,7 @@ public class Weapon : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            other.GetComponent<BasicEnemy>().OnTakeDamage(attackDamage);
+            other.GetComponent<EnemyBase>().OnTakeDamage(attackDamage);
         }
     }
 }
