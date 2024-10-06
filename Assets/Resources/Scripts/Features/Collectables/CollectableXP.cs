@@ -13,4 +13,13 @@ public class CollectableXP : MonoBehaviour
 
         value = collectableData.value;
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            other.GetComponent<PlayerLevel>().XPIncrease(value);
+            gameObject.SetActive(false);
+        }
+    }
 }

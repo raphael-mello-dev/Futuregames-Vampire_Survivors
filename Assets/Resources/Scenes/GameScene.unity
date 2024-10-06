@@ -1003,6 +1003,19 @@ MonoBehaviour:
   hudManager: {fileID: 812497212}
   maxHealth: 10
   health: 10
+--- !u!114 &566595670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 395611921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62751d7ecf538e24893c3268c3ec5418, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hudManager: {fileID: 812497212}
 --- !u!1 &613609310
 GameObject:
   m_ObjectHideFlags: 0
@@ -1864,6 +1877,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeBar: {fileID: 527819039}
+  xpBar: {fileID: 1797853860}
+  levelText: {fileID: 770522216}
 --- !u!1 &870422266 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6737581344256442231, guid: fadbe6b478030434da20d60eb76e4862, type: 3}
@@ -4100,6 +4115,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8635413430774775667, guid: fadbe6b478030434da20d60eb76e4862, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 566595670}
     - targetCorrespondingSourceObject: {fileID: 8635413430774775667, guid: fadbe6b478030434da20d60eb76e4862, type: 3}
       insertIndex: -1
       addedObject: {fileID: 566595661}
