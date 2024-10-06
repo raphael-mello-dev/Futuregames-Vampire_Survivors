@@ -17,6 +17,8 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] private GameObject controlsText;
     [SerializeField] private GameObject creditsText;
 
+    [SerializeField] private MenuDoTween menuDoTween;
+
     void Start()
     {
         controlsButton.onClick.AddListener(OnClickControls);
@@ -52,5 +54,7 @@ public class OptionsMenu : MonoBehaviour
     {
         menuPanel.SetActive(true);
         optionsPanel.SetActive(false);
+        menuDoTween.OptionsHide();
+        menuDoTween.MainMenuDoTween();
     }
 }

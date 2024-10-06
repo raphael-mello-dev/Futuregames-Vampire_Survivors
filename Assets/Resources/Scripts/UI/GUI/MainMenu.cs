@@ -18,6 +18,8 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private Button optionsButton;
     [SerializeField] private Button exitButton;
 
+    [SerializeField] private MenuDoTween menuDoTween;
+
     void Start()
     {
         playButton.onClick.AddListener(OnClickPlay);
@@ -53,6 +55,8 @@ public class MainMenu : MonoBehaviour
     {
         menuPanel.SetActive(false);
         optionsPanel.SetActive(true);
+        menuDoTween.MainMenuHide();
+        menuDoTween.OptionsDoTween();
     }
 
     void OnClickExit()
