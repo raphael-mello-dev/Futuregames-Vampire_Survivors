@@ -36,7 +36,7 @@ public class BasicEnemy : EnemyBase
         if (obj.CompareTag("Player"))
         {
             obj.GetComponent<PlayerHealth>().OnTakeDamage(attack);
-            
+            hudManager.PlayerInfoDisplay(obj.GetComponent<PlayerLevel>().GetPlayerInfo());
         }
     }
 }

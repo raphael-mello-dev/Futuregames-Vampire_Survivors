@@ -19,6 +19,8 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] protected ChaseType chaseType;
     private bool hasBeenDetected;
 
+    [SerializeField] private GameObject bloodVFX; 
+
     public enum ChaseType
     {
         OnlyOnRadius,
@@ -103,5 +105,6 @@ public abstract class EnemyBase : MonoBehaviour
     {
         health = enemyData.health;
         gameObject.SetActive(false);
+        bloodVFX.GetComponent<ParticleSystem>().Play();
     }
 }

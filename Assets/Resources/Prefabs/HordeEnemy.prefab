@@ -167,6 +167,7 @@ MonoBehaviour:
     m_Bits: 8
   detectionRadius: 0
   chaseType: 2
+  bloodVFX: {fileID: 7398632870435814052, guid: 4d13cfd0eaa642f4b8684c345c3b70db, type: 3}
 --- !u!1 &8548267239209773894
 GameObject:
   m_ObjectHideFlags: 0
