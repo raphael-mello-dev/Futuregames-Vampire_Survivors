@@ -12,14 +12,13 @@ public abstract class EnemyBase : MonoBehaviour
     protected int attack;
 
     public Transform Player {  get; private set; }
+    private ParticlesManager ParticlesManager;
 
     [Header("Player Detection")]
     [SerializeField] protected LayerMask playerLayer;
     [SerializeField] protected float detectionRadius;
     [SerializeField] protected ChaseType chaseType;
     private bool hasBeenDetected;
-
-    [SerializeField] private GameObject bloodVFX; 
 
     public enum ChaseType
     {
@@ -40,6 +39,7 @@ public abstract class EnemyBase : MonoBehaviour
         Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 
         hasBeenDetected = false;
+        ParticlesManager = GameObject.FindObjectOfType<ParticlesManager>();
     }
 
     public void OnMove()
@@ -104,7 +104,7 @@ public abstract class EnemyBase : MonoBehaviour
     protected virtual void Death()
     {
         health = enemyData.health;
+        ParticlesManager.ActivateBloodPtl(transform.position);
         gameObject.SetActive(false);
-        bloodVFX.GetComponent<ParticleSystem>().Play();
     }
 }
