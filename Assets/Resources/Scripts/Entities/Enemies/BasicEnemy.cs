@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class BasicEnemy : EnemyBase
 {
+    private HUDManager hudManager;
     private DropsManager dropsManager;
 
     void Awake()
@@ -13,6 +14,7 @@ public class BasicEnemy : EnemyBase
 
     private void Start()
     {
+        hudManager = GameObject.FindObjectOfType<HUDManager>();
         dropsManager = GameObject.FindObjectOfType<DropsManager>();
     }
 
@@ -34,6 +36,7 @@ public class BasicEnemy : EnemyBase
         if (obj.CompareTag("Player"))
         {
             obj.GetComponent<PlayerHealth>().OnTakeDamage(attack);
+            
         }
     }
 }

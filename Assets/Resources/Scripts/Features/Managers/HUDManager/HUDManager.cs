@@ -9,6 +9,7 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private Image xpBar;
 
     [SerializeField] private TextMeshProUGUI levelText;
+    [SerializeField] private TextMeshProUGUI infoText;
 
     private void Start()
     {
@@ -28,5 +29,10 @@ public class HUDManager : MonoBehaviour
     public void LifeBarDisplay(float lifeAmount)
     {
         lifeBar.fillAmount = lifeAmount;
+    }
+
+    public void PlayerInfoDisplay(string text)
+    {
+        infoText.text = text;
     }
 }

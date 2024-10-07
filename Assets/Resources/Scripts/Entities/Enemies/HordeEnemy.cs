@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class HordeEnemy : EnemyBase
 {
+    private HUDManager hudManager;
     private DropsManager dropsManager;
 
     void Awake()
@@ -13,6 +14,7 @@ public class HordeEnemy : EnemyBase
 
     private void Start()
     {
+        hudManager = GameObject.FindObjectOfType<HUDManager>();
         dropsManager = GameObject.FindObjectOfType<DropsManager>();
     }
 
@@ -34,6 +36,7 @@ public class HordeEnemy : EnemyBase
         if (obj.CompareTag("Player"))
         {
             obj.GetComponent<PlayerHealth>().OnTakeDamage(attack);
+            hudManager.PlayerInfoDisplay(obj.GetComponent<PlayerLevel>().GetPlayerInfo());
         }
     }
 }

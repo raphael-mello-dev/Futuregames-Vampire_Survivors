@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    [SerializeField] private int attackDamage;
+    public int attackDamage;
 
     void OnTriggerEnter2D(Collider2D other)
     {
