@@ -18,8 +18,11 @@ public class PlayerHealth : MonoBehaviour
         }
         else
         {
+            health = 0;
             hudManager.LifeBarDisplay(0);
+            hudManager.PlayerInfoDisplay(gameObject.GetComponent<PlayerLevel>().GetPlayerInfo());
             gameObject.SetActive(false);
+            GameManager.Instance.stateMachine.TransitionTo<EndGameState>();
         }
 
     }

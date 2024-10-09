@@ -3668,8 +3668,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basicEnemiesList: []
   hordeEnemiesList: []
-  basicEnemyCount: 15
-  hordeEnemyCount: 5
+  basicEnemyCount: 30
+  hordeEnemyCount: 15
   spawnDistance: 3
   timeToSpawn: 1
 --- !u!1 &1747363732
@@ -3982,8 +3982,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smallXPList: []
   mediumXPList: []
-  smallXPCount: 20
-  mediumXPCount: 10
+  smallXPCount: 40
+  mediumXPCount: 50
 --- !u!1 &2043381298
 GameObject:
   m_ObjectHideFlags: 0
