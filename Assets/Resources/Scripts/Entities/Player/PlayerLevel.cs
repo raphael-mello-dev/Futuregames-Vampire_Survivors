@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 
 public class PlayerLevel : MonoBehaviour
 {
     [SerializeField] HUDManager hudManager;
+
+    public static event Action OnLeveledUp;
 
     public int Level { get; private set; }
     public float NeededXP { get; private set; }
@@ -46,6 +49,7 @@ public class PlayerLevel : MonoBehaviour
         hudManager.LevelTextUpdate(Level);
         GetUpgrade(RandomUpgrade());
         hudManager.PlayerInfoDisplay(GetPlayerInfo());
+        OnLeveledUp?.Invoke();
     }
 
     public void XPIncrease(float value)
@@ -70,7 +74,7 @@ public class PlayerLevel : MonoBehaviour
 
     int RandomUpgrade()
     {
-        var number = Random.Range(0, 2f);
+        var number = UnityEngine.Random.Range(0, 2f);
         return (int)(Mathf.Round(number));
     }
 

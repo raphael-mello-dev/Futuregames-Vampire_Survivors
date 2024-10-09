@@ -7,9 +7,9 @@ public abstract class EnemyBase : MonoBehaviour
 
     protected string identifier;
     protected int maxHealth;
-    protected int health;
-    protected float speed;
-    protected int attack;
+    public int health;
+    public float speed;
+    public int attack;
 
     public Transform Player {  get; private set; }
     private ParticlesManager ParticlesManager;
@@ -22,7 +22,7 @@ public abstract class EnemyBase : MonoBehaviour
 
     private void OnEnable()
     {
-        health = enemyData.health;
+        EnemyConfig();
     }
 
     public enum ChaseType

@@ -8,8 +8,6 @@ public class BasicEnemy : EnemyBase
     void Awake()
     {
         identifier = "basicEnemy";
-
-        EnemyConfig();
     }
 
     private void Start()
