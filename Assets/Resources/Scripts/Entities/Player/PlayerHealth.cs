@@ -8,6 +8,13 @@ public class PlayerHealth : MonoBehaviour
     public float maxHealth;
     public float health;
 
+    void OnDisable()
+    {
+        maxHealth = 10;
+        health = maxHealth;
+        GetComponent<SpriteRenderer>().color = Color.white;
+    }
+
     public void OnTakeDamage(int damageAmount)
     {
         if ((health - damageAmount) > 0)

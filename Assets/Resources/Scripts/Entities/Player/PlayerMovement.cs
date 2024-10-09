@@ -4,6 +4,11 @@ public class PlayerMovement : MonoBehaviour
 {
     public float speed;
 
+    void OnDisable()
+    {
+        speed = 4;
+    }
+
     void Update()
     {
         OnMove();

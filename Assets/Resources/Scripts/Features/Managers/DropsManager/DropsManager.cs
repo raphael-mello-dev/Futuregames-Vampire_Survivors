@@ -27,6 +27,33 @@ public class DropsManager : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        GameplayState.OnObjectsActivated -= CheckingObjEnable;
+        EndGameState.OnObjectsDeactivated += gameObject.SetActive;
+
+        foreach (GameObject smallXP in smallXPList)
+        {
+            if (smallXP.activeInHierarchy)
+            {
+                smallXP.SetActive(false);
+            }
+        }
+        foreach (GameObject mediumXP in mediumXPList)
+        {
+            if (mediumXP.activeInHierarchy)
+            {
+                mediumXP.SetActive(false);
+            }
+        }
+    }
+
+    private void OnDisable()
+    {
+        GameplayState.OnObjectsActivated += CheckingObjEnable;
+        EndGameState.OnObjectsDeactivated -= gameObject.SetActive;
+    }
+
     public void SpawnSmallXP(Vector3 enemyDrop)
     {
         foreach (GameObject smallXP in smallXPList)
@@ -51,5 +78,11 @@ public class DropsManager : MonoBehaviour
                 break;
             }
         }
+    }
+
+    void CheckingObjEnable()
+    {
+        if (!gameObject.activeInHierarchy)
+            gameObject.SetActive(true);
     }
 }

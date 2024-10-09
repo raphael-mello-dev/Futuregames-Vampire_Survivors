@@ -5,15 +5,34 @@ using TMPro;
 
 public class HUDManager : MonoBehaviour
 {
+    [SerializeField] private GameObject gameplayPanel;
+    [SerializeField] private GameObject pausePanel;
+
     [SerializeField] private Image lifeBar;
     [SerializeField] private Image xpBar;
 
     [SerializeField] private TextMeshProUGUI levelText;
     [SerializeField] private TextMeshProUGUI infoText;
 
-    private void Start()
+    private void OnEnable()
     {
+        GameplayState.OnObjectsActivated -= CheckingObjEnable;
+        EndGameState.OnObjectsDeactivated += gameObject.SetActive;
+
+        gameplayPanel.SetActive(true);
+        pausePanel.SetActive(true);
+
         LevelTextUpdate(0);
+        XPBarDisplay(0);
+    }
+
+    private void OnDisable()
+    {
+        GameplayState.OnObjectsActivated += CheckingObjEnable;
+        EndGameState.OnObjectsDeactivated -= gameObject.SetActive;
+
+        gameplayPanel.SetActive(false);
+        pausePanel.SetActive(false);
     }
 
     public void LevelTextUpdate(int level)
@@ -34,5 +53,11 @@ public class HUDManager : MonoBehaviour
     public void PlayerInfoDisplay(string text)
     {
         infoText.text = text;
+    }
+
+    void CheckingObjEnable()
+    {
+        if (!gameObject.activeInHierarchy)
+            gameObject.SetActive(true);
     }
 }

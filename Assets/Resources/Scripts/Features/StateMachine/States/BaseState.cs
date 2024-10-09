@@ -9,7 +9,6 @@ public interface IState
 
 public abstract class BaseState : IState
 {
-
     public virtual void OnStart()
     {
 

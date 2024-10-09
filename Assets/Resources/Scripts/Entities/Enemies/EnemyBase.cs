@@ -20,6 +20,11 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] protected ChaseType chaseType;
     private bool hasBeenDetected;
 
+    private void OnEnable()
+    {
+        health = enemyData.health;
+    }
+
     public enum ChaseType
     {
         OnlyOnRadius,

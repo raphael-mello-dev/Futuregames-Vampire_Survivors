@@ -20,6 +20,21 @@ public class PlayerLevel : MonoBehaviour
         hudManager.PlayerInfoDisplay(GetPlayerInfo());
     }
 
+    private void OnEnable()
+    {
+        GameplayState.OnObjectsActivated -= CheckingObjEnable;
+    }
+
+    private void OnDisable()
+    {
+        GameplayState.OnObjectsActivated += CheckingObjEnable;
+        
+        Level = 0;
+        CurrentXP = 0;
+        increaseXPRate = 0.2f;
+        NeededXP = (100 * (1 + increaseXPRate));
+    }
+
     public void LevelUp()
     {
         Level++;
@@ -53,7 +68,6 @@ public class PlayerLevel : MonoBehaviour
     int RandomUpgrade()
     {
         var number = Random.Range(0, 2f);
-        Debug.Log((Mathf.Round(number)));
         return (int)(Mathf.Round(number));
     }
 
@@ -64,16 +78,12 @@ public class PlayerLevel : MonoBehaviour
             case 0:
                 gameObject.GetComponent<PlayerHealth>().maxHealth += 2;
                 gameObject.GetComponent<PlayerHealth>().health += 2;
-                Debug.Log("MH: " + gameObject.GetComponent<PlayerHealth>().maxHealth);
-                Debug.Log("H: " + gameObject.GetComponent<PlayerHealth>().health);
             break;
             case 1:
                 gameObject.GetComponent<PlayerMovement>().speed++;
-                Debug.Log("S: "+ gameObject.GetComponent<PlayerMovement>().speed);
                 break;
             case 2:
                 gameObject.GetComponentInChildren<Weapon>().attackDamage++;
-                Debug.Log("A: " + gameObject.GetComponentInChildren<Weapon>().attackDamage);
                 break;
         }
     }
@@ -82,5 +92,11 @@ public class PlayerLevel : MonoBehaviour
     {
         return $"HP: {gameObject.GetComponent<PlayerHealth>().health}/{gameObject.GetComponent<PlayerHealth>().maxHealth} - " +
             $"Speed: {gameObject.GetComponent<PlayerMovement>().speed} - Power: {gameObject.GetComponentInChildren<Weapon>().attackDamage}";
+    }
+
+    void CheckingObjEnable()
+    {
+        if (!gameObject.activeInHierarchy)
+            gameObject.SetActive(true);
     }
 }

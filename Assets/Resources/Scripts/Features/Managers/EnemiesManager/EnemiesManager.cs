@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemiesManager : MonoBehaviour
@@ -10,7 +11,7 @@ public class EnemiesManager : MonoBehaviour
 
     [SerializeField] private float spawnDistance;
     [SerializeField] private float timeToSpawn;
-    private float rewindTime;
+    [SerializeField] private float rewindTime;
 
     void Start()
     {
@@ -27,15 +28,51 @@ public class EnemiesManager : MonoBehaviour
             hordeEnemy.SetActive(false);
             hordeEnemiesList.Add(hordeEnemy);
         }
+    }
 
-            rewindTime = timeToSpawn;
+    private void OnEnable()
+    {
+        GameplayState.OnObjectsActivated -= CheckingObjEnable;
+        EndGameState.OnObjectsDeactivated += gameObject.SetActive;
+
+        foreach (GameObject enemy in basicEnemiesList)
+        {
+            if (enemy.activeInHierarchy)
+            {
+                enemy.transform.position = Vector3.zero;
+                enemy.SetActive(false);
+            }
+        }
+
+        foreach (GameObject enemy in hordeEnemiesList)
+        {
+            if (enemy.activeInHierarchy)
+            {
+                enemy.transform.position = Vector3.zero;
+                enemy.SetActive(false);
+            }
+        }
+    }
+
+    private void OnDisable()
+    {
+        
+
+        GameplayState.OnObjectsActivated += CheckingObjEnable;
+        EndGameState.OnObjectsDeactivated -= gameObject.SetActive;
     }
 
     void Update()
     {
         if(GameManager.Instance.stateMachine.currentState.ToString() == "GameplayState")
         {
-            SpawnBasicEnemy();
+            timeToSpawn -= Time.deltaTime;
+            if (timeToSpawn <= 0)
+            {
+                SpawnBasicEnemy();
+                timeToSpawn = rewindTime;
+            }
+
             OnMove();
         }
     }
@@ -51,8 +88,6 @@ public class EnemiesManager : MonoBehaviour
 
     void SpawnBasicEnemy()
     {
-        timeToSpawn -= Time.deltaTime;
-
         foreach (GameObject enemy in basicEnemiesList)
         {
             if (!enemy.activeInHierarchy)
@@ -68,35 +103,31 @@ public class EnemiesManager : MonoBehaviour
             }
         }
 
-        if (timeToSpawn <= 0)
+        foreach (GameObject enemy in hordeEnemiesList)
         {
-            foreach (GameObject enemy in hordeEnemiesList)
+            if (!enemy.activeInHierarchy)
             {
-                if (!enemy.activeInHierarchy)
-                {
-                    Vector3 spawnPosition = GetValidSpawnPosition();
+                Vector3 spawnPosition = GetValidSpawnPosition();
 
-                    if (spawnPosition != Vector3.zero)
-                    {
-                        enemy.transform.position = spawnPosition;
-                        enemy.SetActive(true);
-                        break;
-                    }
+                if (spawnPosition != Vector3.zero)
+                {
+                    enemy.transform.position = spawnPosition;
+                    enemy.SetActive(true);
+                    break;
                 }
             }
-
-            timeToSpawn = rewindTime;
         }
     }
 
     Vector3 GetValidSpawnPosition()
     {
         Vector3 spawnPosition;
+        
         int attempts = 0;
 
         do
         {
-            spawnPosition = new Vector3(Random.Range(-25f, 25f), Random.Range(-20f, 20f), 0);
+            spawnPosition = new Vector3(Random.Range(-20f, 20f), Random.Range(-18f, 18f), 0);
             attempts++;
 
             if (attempts >= 10) return Vector3.zero;
@@ -125,5 +156,11 @@ public class EnemiesManager : MonoBehaviour
         }
 
         return true;
+    }
+
+    void CheckingObjEnable()
+    {
+        if(!gameObject.activeInHierarchy)
+            gameObject.SetActive(true);
     }
 }
