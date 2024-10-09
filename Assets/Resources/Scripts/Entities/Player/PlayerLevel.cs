@@ -28,7 +28,10 @@ public class PlayerLevel : MonoBehaviour
     private void OnDisable()
     {
         GameplayState.OnObjectsActivated += CheckingObjEnable;
-        
+
+        if (Level > GameManager.Instance.topScore)
+            GameManager.Instance.topScore = Level;
+
         Level = 0;
         CurrentXP = 0;
         increaseXPRate = 0.2f;

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
@@ -9,27 +10,26 @@ public class MainMenu : MonoBehaviour
 
     [Header("Panels")]
     [SerializeField] private GameObject menuPanel;
-    [SerializeField] private GameObject scoresPanel;
     [SerializeField] private GameObject optionsPanel;
 
     [Header("Menu Buttons")]
     [SerializeField] private Button playButton;
-    [SerializeField] private Button scoresButton;
     [SerializeField] private Button optionsButton;
     [SerializeField] private Button exitButton;
 
+    [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private MenuDoTween menuDoTween;
 
     void Start()
     {
         playButton.onClick.AddListener(OnClickPlay);
-        scoresButton.onClick.AddListener(OnClickScores);
         optionsButton.onClick.AddListener(OnClickOptions);
         exitButton.onClick.AddListener(OnClickExit);
     }
 
     private void OnEnable()
     {
+        scoreText.text = $"Hightest Level: {GameManager.Instance.topScore}";
         menuPanel.SetActive(true);
         GameplayCanvas.SetActive(false);
     }
@@ -43,12 +43,6 @@ public class MainMenu : MonoBehaviour
     void OnClickPlay()
     {
         GameManager.Instance.stateMachine.TransitionTo<GameplayState>();
-    }
-
-    void OnClickScores()
-    {
-        menuPanel.SetActive(false);
-        scoresPanel.SetActive(true);
     }
 
     void OnClickOptions()

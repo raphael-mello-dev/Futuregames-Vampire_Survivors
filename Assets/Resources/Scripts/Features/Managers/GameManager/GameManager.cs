@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
 
     public PlayerInputManager PlayerController { get; private set; }
 
+    public int topScore;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -22,6 +24,8 @@ public class GameManager : MonoBehaviour
 
         stateMachine = new StateMachine();
         stateMachine.TransitionTo<MenuState>();
+
+        topScore = 0;
     }
 
     private void Update()

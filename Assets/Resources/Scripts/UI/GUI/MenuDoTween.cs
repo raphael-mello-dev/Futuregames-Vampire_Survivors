@@ -6,6 +6,7 @@ public class MenuDoTween : MonoBehaviour
 {
     [Header("Main menu")]
     [SerializeField] private RectTransform gameNameRect;
+    [SerializeField] private RectTransform scoreTextRect;
     [SerializeField] private RectTransform buttonsGroupRect;
 
     [Header("Options menu")]
@@ -19,13 +20,15 @@ public class MenuDoTween : MonoBehaviour
 
     public void MainMenuDoTween()
     {
-        gameNameRect.DOLocalMoveY(320, 3);
-        buttonsGroupRect.DOLocalMoveY(120, 3);
+        gameNameRect.DOLocalMoveY(350, 3);
+        scoreTextRect.DOLocalMoveY(50, 3);
+        buttonsGroupRect.DOLocalMoveY(-340, 3);
     }
 
     public void MainMenuHide()
     {
-        gameNameRect.DOLocalMoveY(600, 0);
+        gameNameRect.DOLocalMoveY(700, 0);
+        scoreTextRect.DOLocalMoveY(600, 3);
         buttonsGroupRect.DOLocalMoveY(-650, 0);
     }
 
