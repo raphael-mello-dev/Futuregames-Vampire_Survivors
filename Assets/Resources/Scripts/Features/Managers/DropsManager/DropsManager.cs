@@ -5,10 +5,11 @@ public class DropsManager : MonoBehaviour
 {
     [SerializeField] private List<GameObject> smallXPList;
     [SerializeField] private List<GameObject> mediumXPList;
+    [SerializeField] private List<GameObject> largeXPList;
 
     [SerializeField] private int smallXPCount;
     [SerializeField] private int mediumXPCount;
-
+    [SerializeField] private int largeXPCount;
 
     private void Start()
     {
@@ -25,6 +26,13 @@ public class DropsManager : MonoBehaviour
             mediumXP.SetActive(false);
             mediumXPList.Add(mediumXP);
         }
+
+        for (int i = 0; i < largeXPCount; i++)
+        {
+            GameObject largeXP = Instantiate(Resources.Load<GameObject>("Prefabs/largeXP"), Vector3.zero, Quaternion.identity, gameObject.transform);
+            largeXP.SetActive(false);
+            largeXPList.Add(largeXP);
+        }
     }
 
     private void OnEnable()
@@ -39,11 +47,20 @@ public class DropsManager : MonoBehaviour
                 smallXP.SetActive(false);
             }
         }
+        
         foreach (GameObject mediumXP in mediumXPList)
         {
             if (mediumXP.activeInHierarchy)
             {
                 mediumXP.SetActive(false);
+            }
+        }
+        
+        foreach (GameObject largeXP in largeXPList)
+        {
+            if (largeXP.activeInHierarchy)
+            {
+                largeXP.SetActive(false);
             }
         }
     }
@@ -75,6 +92,19 @@ public class DropsManager : MonoBehaviour
             {
                 mediumXP.transform.position = enemyDrop;
                 mediumXP.SetActive(true);
+                break;
+            }
+        }
+    }
+
+    public void SpawnLargeXP(Vector3 enemyDrop)
+    {
+        foreach (GameObject largeXP in largeXPList)
+        {
+            if (!largeXP.activeInHierarchy)
+            {
+                largeXP.transform.position = enemyDrop;
+                largeXP.SetActive(true);
                 break;
             }
         }

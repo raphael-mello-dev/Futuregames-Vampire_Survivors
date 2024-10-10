@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 5973447940539617180}
   - component: {fileID: 2765352816822954723}
   - component: {fileID: 4096356993058377107}
-  - component: {fileID: 8334461341517759340}
+  - component: {fileID: -5918492830211375771}
   m_Layer: 0
-  m_Name: BasicEnemy
+  m_Name: TankEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -150,7 +150,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &8334461341517759340
+--- !u!114 &-5918492830211375771
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -159,17 +159,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 7249096167379776162}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0593ac9ab1f33bb419926db4ac3af5a5, type: 3}
+  m_Script: {fileID: 11500000, guid: 9bc6c1178a85635449f46dc74fdc3409, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
+  currentHealth: 0
   speed: 0
   attack: 0
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
-  detectionRadius: 3
-  chaseType: 1
+  detectionRadius: 4
+  chaseType: 0
 --- !u!1 &8548267239209773894
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,7 +245,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.86415094, g: 0.15446457, b: 0.12228539, a: 1}
+  m_Color: {r: 0.4792453, g: 0.1559605, b: 0.071434624, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

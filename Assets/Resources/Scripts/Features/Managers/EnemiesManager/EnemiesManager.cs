@@ -6,8 +6,10 @@ public class EnemiesManager : MonoBehaviour
 {
     [SerializeField] private List<GameObject> basicEnemiesList;
     [SerializeField] private List<GameObject> hordeEnemiesList;
+    [SerializeField] private List<GameObject> tankEnemiesList;
     [SerializeField] private int basicEnemyCount;
     [SerializeField] private int hordeEnemyCount;
+    [SerializeField] private int tankEnemyCount;
 
     [SerializeField] private float spawnDistance;
     [SerializeField] private float timeToSpawn;
@@ -27,6 +29,13 @@ public class EnemiesManager : MonoBehaviour
             GameObject hordeEnemy = Instantiate(Resources.Load<GameObject>("Prefabs/HordeEnemy"), Vector3.zero, Quaternion.identity, gameObject.transform);
             hordeEnemy.SetActive(false);
             hordeEnemiesList.Add(hordeEnemy);
+        }
+
+        for (int i = 0; i < tankEnemyCount; i++)
+        {
+            GameObject tankEnemy = Instantiate(Resources.Load<GameObject>("Prefabs/tankEnemy"), Vector3.zero, Quaternion.identity, gameObject.transform);
+            tankEnemy.SetActive(false);
+            tankEnemiesList.Add(tankEnemy);
         }
     }
 
@@ -53,6 +62,15 @@ public class EnemiesManager : MonoBehaviour
                 enemy.SetActive(false);
             }
         }
+        
+        foreach (GameObject enemy in tankEnemiesList)
+        {
+            if (enemy.activeInHierarchy)
+            {
+                enemy.transform.position = Vector3.zero;
+                enemy.SetActive(false);
+            }
+        }
     }
 
     private void OnDisable()
@@ -67,6 +85,7 @@ public class EnemiesManager : MonoBehaviour
         if(GameManager.Instance.stateMachine.currentState.ToString() == "GameplayState")
         {
             timeToSpawn -= Time.deltaTime;
+
             if (timeToSpawn <= 0)
             {
                 SpawnBasicEnemy();
@@ -84,6 +103,9 @@ public class EnemiesManager : MonoBehaviour
 
         foreach (GameObject enemy in hordeEnemiesList)
             enemy.GetComponent<HordeEnemy>().OnMove();
+        
+        foreach (GameObject enemy in tankEnemiesList)
+            enemy.GetComponent<TankEnemy>().OnMove();
     }
 
     void SpawnBasicEnemy()
@@ -104,6 +126,21 @@ public class EnemiesManager : MonoBehaviour
         }
 
         foreach (GameObject enemy in hordeEnemiesList)
+        {
+            if (!enemy.activeInHierarchy)
+            {
+                Vector3 spawnPosition = GetValidSpawnPosition();
+
+                if (spawnPosition != Vector3.zero)
+                {
+                    enemy.transform.position = spawnPosition;
+                    enemy.SetActive(true);
+                    break;
+                }
+            }
+        }
+        
+        foreach (GameObject enemy in tankEnemiesList)
         {
             if (!enemy.activeInHierarchy)
             {
@@ -155,6 +192,15 @@ public class EnemiesManager : MonoBehaviour
             }
         }
 
+        foreach (GameObject enemy in tankEnemiesList)
+        {
+
+            if (Vector3.Distance(position, enemy.GetComponent<TankEnemy>().Player.position) < spawnDistance)
+            {
+                return false;
+            }
+        }
+
         return true;
     }
 
@@ -163,45 +209,38 @@ public class EnemiesManager : MonoBehaviour
         switch (Mathf.Round(UnityEngine.Random.Range(0, 3f)))
         {
             case 0:
-                if (timeToSpawn > 0.5f)
-                    timeToSpawn -= 05f;
+                if (rewindTime > 0.5f)
+                    rewindTime -= 0.25f;
             break;
             case 1:
                 foreach (GameObject enemy in basicEnemiesList)
-                {
-                    if (enemy.activeInHierarchy || !enemy.activeInHierarchy)
-                        enemy.GetComponent<BasicEnemy>().speed += 0.02f;
-                }
+                    enemy.GetComponent<BasicEnemy>().speed += 0.02f;
+                
                 foreach (GameObject enemy in hordeEnemiesList)
-                {
-
-                    if (enemy.activeInHierarchy || !enemy.activeInHierarchy)
-                        enemy.GetComponent<HordeEnemy>().speed += 0.01f;
-                }
+                    enemy.GetComponent<HordeEnemy>().speed += 0.01f;
+                
+                foreach (GameObject enemy in tankEnemiesList)
+                    enemy.GetComponent<TankEnemy>().speed += 0.005f;
                 break;
             case 2:
                 foreach (GameObject enemy in basicEnemiesList)
-                {
-                    if (enemy.activeInHierarchy || !enemy.activeInHierarchy)
-                        enemy.GetComponent<BasicEnemy>().attack += 1;
-                }
+                    enemy.GetComponent<BasicEnemy>().attack += 1;
+                
                 foreach (GameObject enemy in hordeEnemiesList)
-                {
-                    if (enemy.activeInHierarchy || !enemy.activeInHierarchy)
-                        enemy.GetComponent<HordeEnemy>().attack += 1;
-                }
+                    enemy.GetComponent<HordeEnemy>().attack += 1;
+                
+                foreach (GameObject enemy in tankEnemiesList)
+                    enemy.GetComponent<TankEnemy>().attack += 1;
                 break;
             default:
                 foreach (GameObject enemy in basicEnemiesList)
-                {
-                    if (enemy.activeInHierarchy || !enemy.activeInHierarchy)
-                        enemy.GetComponent<BasicEnemy>().health += 2;
-                }
+                    enemy.GetComponent<BasicEnemy>().health += 2;
+                
                 foreach (GameObject enemy in hordeEnemiesList)
-                {
-                    if (enemy.activeInHierarchy || !enemy.activeInHierarchy)
-                        enemy.GetComponent<HordeEnemy>().health += 1;
-                }
+                    enemy.GetComponent<HordeEnemy>().health += 1;
+                
+                foreach (GameObject enemy in tankEnemiesList)
+                    enemy.GetComponent<TankEnemy>().health += 3;
                 break;
         }
     }

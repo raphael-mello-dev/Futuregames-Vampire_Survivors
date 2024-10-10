@@ -8,6 +8,7 @@ public abstract class EnemyBase : MonoBehaviour
     protected string identifier;
     protected int maxHealth;
     public int health;
+    public int currentHealth;
     public float speed;
     public int attack;
 
@@ -20,11 +21,6 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] protected ChaseType chaseType;
     private bool hasBeenDetected;
 
-    private void OnEnable()
-    {
-        EnemyConfig();
-    }
-
     public enum ChaseType
     {
         OnlyOnRadius,
@@ -32,12 +28,20 @@ public abstract class EnemyBase : MonoBehaviour
         AlwaysChase
     }
 
+    private void OnEnable()
+    {
+        if(GameManager.Instance.stateMachine.currentState.ToString() == "MenuState")
+            EnemyConfig();
+    }
+
+
     protected void EnemyConfig()
     {
         enemyData = Resources.Load<EnemyDataSO>($"ScriptableObjects/Entities/Enemies/{identifier}");
 
         maxHealth = enemyData.maxHealth;
         health = enemyData.health;
+        currentHealth = health;
         speed = enemyData.speed;
         attack = enemyData.attack;
 
@@ -90,11 +94,11 @@ public abstract class EnemyBase : MonoBehaviour
 
     public virtual void OnTakeDamage(int damageAmount)
     {
-        if (damageAmount >= health)
+        if (damageAmount >= currentHealth)
             Death();
         else
         {
-            health -= damageAmount;
+            currentHealth -= damageAmount;
             StartCoroutine(nameof(DamageVisual));
         }
     }
@@ -108,7 +112,7 @@ public abstract class EnemyBase : MonoBehaviour
 
     protected virtual void Death()
     {
-        health = enemyData.health;
+        currentHealth = health;
         ParticlesManager.ActivateBloodPtl(transform.position);
         gameObject.SetActive(false);
     }

@@ -4175,11 +4175,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basicEnemiesList: []
   hordeEnemiesList: []
-  basicEnemyCount: 30
-  hordeEnemyCount: 15
+  tankEnemiesList: []
+  basicEnemyCount: 20
+  hordeEnemyCount: 10
+  tankEnemyCount: 15
   spawnDistance: 3
-  timeToSpawn: 1
-  rewindTime: 1
+  timeToSpawn: 3
+  rewindTime: 3
 --- !u!1 &1747363732
 GameObject:
   m_ObjectHideFlags: 0
@@ -4490,8 +4492,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smallXPList: []
   mediumXPList: []
+  largeXPList: []
   smallXPCount: 40
   mediumXPCount: 50
+  largeXPCount: 30
 --- !u!1 &2043381298
 GameObject:
   m_ObjectHideFlags: 0

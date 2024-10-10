@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27fd882aec8fa4642a29751550523708, type: 3}
-  m_Name: basicEnemy
+  m_Script: {fileID: 11500000, guid: f3ec467fc1e86934386ef39b1225cc81, type: 3}
+  m_Name: largeXP
   m_EditorClassIdentifier: 
-  maxHealth: 35
-  health: 4
-  speed: 0.5
-  attack: 1
+  value: 50

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 27fd882aec8fa4642a29751550523708, type: 3}
-  m_Name: basicEnemy
+  m_Name: tankEnemy
   m_EditorClassIdentifier: 
-  maxHealth: 35
-  health: 4
-  speed: 0.5
-  attack: 1
+  maxHealth: 50
+  health: 6
+  speed: 0.25
+  attack: 2
