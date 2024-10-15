@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ebe35a6aa4bbdc4eb6902e39173a4c5, type: 3}
+  m_Name: MinDamageUpgrade
+  m_EditorClassIdentifier: 
+  nameUpgd: Min Damage
+  description: Slightly increases player attack damage
+  sprite: {fileID: 21300000, guid: 8a66daa92643ff94388053aa9dad8006, type: 3}
+  type: 1
+  attachedType: 0
+  statType: 0
+  value: 1

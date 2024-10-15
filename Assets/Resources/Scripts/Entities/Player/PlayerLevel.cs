@@ -23,14 +23,25 @@ public class PlayerLevel : MonoBehaviour
         hudManager.PlayerInfoDisplay(GetPlayerInfo());
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            LevelUp();
+        }
+    }
+
     private void OnEnable()
     {
         GameplayState.OnObjectsActivated -= CheckingObjEnable;
+        Upgrade.OnEfectGiven += GetUpgrade;
     }
 
     private void OnDisable()
     {
         GameplayState.OnObjectsActivated += CheckingObjEnable;
+        Upgrade.OnEfectGiven -= GetUpgrade;
+
 
         if (Level > GameManager.Instance.topScore)
             GameManager.Instance.topScore = Level;
@@ -47,9 +58,8 @@ public class PlayerLevel : MonoBehaviour
         increaseXPRate += 0.2f * Level;
         NeededXP = (100 * (1 + increaseXPRate));
         hudManager.LevelTextUpdate(Level);
-        GetUpgrade(RandomUpgrade());
-        hudManager.PlayerInfoDisplay(GetPlayerInfo());
         OnLeveledUp?.Invoke();
+        GameManager.Instance.stateMachine.TransitionTo<UpgradeState>();
     }
 
     public void XPIncrease(float value)
@@ -78,27 +88,47 @@ public class PlayerLevel : MonoBehaviour
         return (int)(Mathf.Round(number));
     }
 
-    void GetUpgrade(int value)
+    void GetUpgrade(UpgradeSO reference)
     {
-        switch (value)
+        if (reference.type == UpgradeSO.UpgradeType.AddStats)
         {
-            case 0:
-                gameObject.GetComponent<PlayerHealth>().maxHealth += 2;
-                gameObject.GetComponent<PlayerHealth>().health += 2;
-            break;
-            case 1:
-                gameObject.GetComponent<PlayerMovement>().speed++;
-                break;
-            case 2:
-                gameObject.GetComponentInChildren<Weapon>().attackDamage++;
-                break;
+            switch (reference.statType)
+            {
+                case UpgradeSO.StatType.Health:
+                    gameObject.GetComponent<PlayerHealth>().maxHealth += reference.value;
+                    gameObject.GetComponent<PlayerHealth>().health += reference.value;
+                    break;
+                case UpgradeSO.StatType.Speed:
+                    gameObject.GetComponent<PlayerMovement>().speed += reference.value;
+                    break;
+                case UpgradeSO.StatType.Damage:
+                    gameObject.GetComponent<PlayerAttack>().attackDamage += (int)reference.value;
+                    break;
+            }
         }
+        else
+        {
+            switch (reference.attachedType)
+            {
+                case UpgradeSO.AttachedType.NotAttachable:
+                    break;
+                default:
+                    var pos = gameObject.transform.position;
+                    GameObject prefab = Resources.Load<GameObject>(reference.PrefabPath);
+                    prefab.GetComponent<Weapon>().aType = reference.attachedType;
+                    prefab.GetComponent<Weapon>().attackDamage = (int)reference.value;
+                    Instantiate(prefab, new Vector3(pos.x, pos.y + 1.4f, 0), Quaternion.identity, gameObject.transform);
+                break;
+            }
+        }
+
+        hudManager.PlayerInfoDisplay(GetPlayerInfo());
     }
 
     public string GetPlayerInfo()
     {
         return $"HP: {gameObject.GetComponent<PlayerHealth>().health}/{gameObject.GetComponent<PlayerHealth>().maxHealth} - " +
-            $"Speed: {gameObject.GetComponent<PlayerMovement>().speed} - Power: {gameObject.GetComponentInChildren<Weapon>().attackDamage}";
+            $"Speed: {gameObject.GetComponent<PlayerMovement>().speed} - Player Power: {gameObject.GetComponent<PlayerAttack>().attackDamage}";
     }
 
     void CheckingObjEnable()
