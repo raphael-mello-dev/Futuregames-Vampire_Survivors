@@ -24,21 +24,25 @@ public class UpgradesManager : MonoBehaviour
         hasWeapon = false;
 
         OnExitUpgrades();
-        
+
         upgrades = Resources.LoadAll<UpgradeSO>("ScriptableObjects/Features/Upgrades/");
 
-        for (int  i =0 ; i < upgrades.Length; i++)
-            upgradesList.Add(upgrades[i]);
+        upgradesList = upgrades.ToList();
+
+        num = new int[currentUpgrades.Count];
 
         for (int i = 0; i < num.Length; i++)
-            num[i] = (int)Mathf.Round(UnityEngine.Random.Range(0, ListLength));
+            num[i] = UnityEngine.Random.Range(0, upgradesList.Count);
     }
+
+
 
     private void OnEnable()
     {
         UpgradeState.OnStateEntered += OnEnterUpgrades;
         Upgrade.OnUpgradeClicked += OnExitUpgrades;
         Upgrade.OnUpgradeRemoved += RemoveUpgrade;
+        EndGameState.OnGameEnded += OnGameRestart;
     }
 
     private void OnDisable()
@@ -46,8 +50,8 @@ public class UpgradesManager : MonoBehaviour
         UpgradeState.OnStateEntered -= OnEnterUpgrades;
         Upgrade.OnUpgradeClicked -= OnExitUpgrades;
         Upgrade.OnUpgradeRemoved -= RemoveUpgrade;
+        EndGameState.OnGameEnded -= OnGameRestart;
     }
-
     void OnEnterUpgrades()
     {
         if (hasWeapon)
@@ -56,10 +60,10 @@ public class UpgradesManager : MonoBehaviour
 
             foreach (var upgrade in currentUpgrades)
             {
-                upgrade.GetComponent<Upgrade>().currentUpgrade = upgradesList[num[i]];
-                
-                if (i < currentUpgrades.Count)
-                    i++;
+                if (i < num.Length && num[i] < upgradesList.Count)
+                    upgrade.GetComponent<Upgrade>().currentUpgrade = upgradesList[num[i]];
+
+                i++;
             }
 
             upgradesPanel.SetActive(true);
@@ -91,5 +95,11 @@ public class UpgradesManager : MonoBehaviour
         {
             upgradesList.Remove(reference);
         }   
+    }
+
+    void OnGameRestart()
+    {
+        upgradesList.Clear();
+        upgradesList = upgrades.ToList();
     }
 }
