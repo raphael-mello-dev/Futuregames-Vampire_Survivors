@@ -16,6 +16,7 @@ public class Upgrade : MonoBehaviour
 
     public static event Action OnUpgradeClicked;
     public static event Action<UpgradeSO> OnEfectGiven;
+    public static event Action<UpgradeSO> OnUpgradeRemoved;
 
     private void OnEnable()
     {
@@ -45,5 +46,8 @@ public class Upgrade : MonoBehaviour
         OnUpgradeClicked?.Invoke();
         OnEfectGiven?.Invoke(currentUpgrade);
         GameManager.Instance.stateMachine.TransitionTo<GameplayState>();
+
+        if (currentUpgrade.nameUpgd == "Normal Mace")
+            OnUpgradeRemoved?.Invoke(currentUpgrade);
     }
 }

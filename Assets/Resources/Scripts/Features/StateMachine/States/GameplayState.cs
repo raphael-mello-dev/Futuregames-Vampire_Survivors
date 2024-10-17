@@ -9,6 +9,9 @@ public class GameplayState : BaseState
     {
         OnObjectsActivated?.Invoke();
         GameManager.Instance.PlayerController.Controls.Gameplay.Enable();
+
+        if (!UpgradesManager.hasWeapon)
+            GameManager.Instance.stateMachine.TransitionTo<UpgradeState>();
     }
 
     public override void OnEnd()

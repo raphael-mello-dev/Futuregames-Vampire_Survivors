@@ -6,6 +6,6 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnEnable()
     {
-        attackDamage = 0;
+        attackDamage = 1;
     }
 }

@@ -23,14 +23,6 @@ public class PlayerLevel : MonoBehaviour
         hudManager.PlayerInfoDisplay(GetPlayerInfo());
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            LevelUp();
-        }
-    }
-
     private void OnEnable()
     {
         GameplayState.OnObjectsActivated -= CheckingObjEnable;
@@ -50,6 +42,8 @@ public class PlayerLevel : MonoBehaviour
         CurrentXP = 0;
         increaseXPRate = 0.2f;
         NeededXP = (100 * (1 + increaseXPRate));
+
+        UpgradesManager.hasWeapon = false;
     }
 
     public void LevelUp()
@@ -115,6 +109,7 @@ public class PlayerLevel : MonoBehaviour
                 default:
                     var pos = gameObject.transform.position;
                     GameObject prefab = Resources.Load<GameObject>(reference.PrefabPath);
+                    prefab.GetComponent<Weapon>().weaponName = reference.nameUpgd;
                     prefab.GetComponent<Weapon>().aType = reference.attachedType;
                     prefab.GetComponent<Weapon>().attackDamage = (int)reference.value;
                     Instantiate(prefab, new Vector3(pos.x, pos.y + 1.4f, 0), Quaternion.identity, gameObject.transform);

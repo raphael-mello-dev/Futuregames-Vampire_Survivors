@@ -1,59 +1,95 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class UpgradesManager : MonoBehaviour
 {
     [SerializeField] private GameObject upgradesPanel;
+    [SerializeField] private GameObject firstUpgradePanel;
+    [SerializeField] private GameObject firstUpgrade;
 
-    [SerializeField] private UpgradeSO[] upgradesList;
+    [SerializeField] private UpgradeSO[] upgrades;
+    [SerializeField] private List<UpgradeSO> upgradesList;
     [SerializeField] private List<GameObject> currentUpgrades;
 
     [SerializeField] private int[] num;
-    private float listLength;
+    public float ListLength { get { return (upgradesList.Count - 1); } }
+
+    public static bool hasWeapon;
 
     void Start()
     {
+        hasWeapon = false;
+
         OnExitUpgrades();
         
-        upgradesList = Resources.LoadAll<UpgradeSO>("ScriptableObjects/Features/Upgrades/");
-        
-        listLength = (upgradesList.Length - 1);
+        upgrades = Resources.LoadAll<UpgradeSO>("ScriptableObjects/Features/Upgrades/");
+
+        for (int  i =0 ; i < upgrades.Length; i++)
+            upgradesList.Add(upgrades[i]);
 
         for (int i = 0; i < num.Length; i++)
-            num[i] = (int)Mathf.Round(Random.Range(0, listLength));
+            num[i] = (int)Mathf.Round(UnityEngine.Random.Range(0, ListLength));
     }
 
     private void OnEnable()
     {
         UpgradeState.OnStateEntered += OnEnterUpgrades;
         Upgrade.OnUpgradeClicked += OnExitUpgrades;
+        Upgrade.OnUpgradeRemoved += RemoveUpgrade;
     }
 
     private void OnDisable()
     {
         UpgradeState.OnStateEntered -= OnEnterUpgrades;
         Upgrade.OnUpgradeClicked -= OnExitUpgrades;
+        Upgrade.OnUpgradeRemoved -= RemoveUpgrade;
     }
 
     void OnEnterUpgrades()
     {
-        int i = 0;
-
-        foreach (var upgrade in currentUpgrades)
+        if (hasWeapon)
         {
-            upgrade.GetComponent<Upgrade>().currentUpgrade = upgradesList[num[i]];
-            i++;
-        }
+            int i = 0;
 
-        upgradesPanel.SetActive(true);
+            foreach (var upgrade in currentUpgrades)
+            {
+                upgrade.GetComponent<Upgrade>().currentUpgrade = upgradesList[num[i]];
+                
+                if (i < currentUpgrades.Count)
+                    i++;
+            }
+
+            upgradesPanel.SetActive(true);
+        }
+        else
+        {
+            foreach (var upgrade in upgradesList)
+                firstUpgrade.GetComponent<Upgrade>().currentUpgrade = upgrade;
+
+            firstUpgradePanel.SetActive(true);
+            hasWeapon = true;
+        }
     }
 
     void OnExitUpgrades()
     {
         for (int i = 0; i < num.Length; i++)
-            num[i] = (int)Mathf.Round(Random.Range(0, listLength));
+            num[i] = (int)Mathf.Round(UnityEngine.Random.Range(0, ListLength));
 
         upgradesPanel.SetActive(false);
+
+        if (firstUpgradePanel.activeInHierarchy)
+            firstUpgradePanel.SetActive(false);
+    }
+
+    void RemoveUpgrade(UpgradeSO reference)
+    {
+        if (upgradesList.Contains(reference))
+        {
+            upgradesList.Remove(reference);
+        }   
     }
 }
