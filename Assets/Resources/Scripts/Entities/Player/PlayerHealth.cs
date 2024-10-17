@@ -12,6 +12,7 @@ public class PlayerHealth : MonoBehaviour
     {
         maxHealth = 10;
         health = maxHealth;
+        hudManager.LifeBarDisplay((health/maxHealth));
         GetComponent<SpriteRenderer>().color = Color.white;
     }
 
