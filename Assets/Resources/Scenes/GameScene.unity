@@ -2484,6 +2484,7 @@ MonoBehaviour:
   capacity: 50
   shotPoint: {fileID: 0}
   player: {fileID: 395611921}
+  hasProjectileWeapon: 0
 --- !u!1 &916299374
 GameObject:
   m_ObjectHideFlags: 0
@@ -4389,6 +4390,7 @@ MonoBehaviour:
   upgradesPanel: {fileID: 1223656315}
   firstUpgradePanel: {fileID: 1212993313}
   firstUpgrade: {fileID: 425867366}
+  upgrades: []
   upgradesList: []
   currentUpgrades:
   - {fileID: 1271094496}
@@ -5525,6 +5527,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1431722095}
     m_Modifications:
+    - target: {fileID: 217695228610947233, guid: fadbe6b478030434da20d60eb76e4862, type: 3}
+      propertyPath: rotationSpeed
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 217695228610947233, guid: fadbe6b478030434da20d60eb76e4862, type: 3}
+      propertyPath: rotationSpeedOrbits
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5590619142095261310, guid: fadbe6b478030434da20d60eb76e4862, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5590619142095261310, guid: fadbe6b478030434da20d60eb76e4862, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5590619142095261310, guid: fadbe6b478030434da20d60eb76e4862, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.4
+      objectReference: {fileID: 0}
     - target: {fileID: 8635413430774775667, guid: fadbe6b478030434da20d60eb76e4862, type: 3}
       propertyPath: m_Name
       value: Player
@@ -5570,7 +5592,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5572281252184608536, guid: fadbe6b478030434da20d60eb76e4862, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8635413430774775667, guid: fadbe6b478030434da20d60eb76e4862, type: 3}

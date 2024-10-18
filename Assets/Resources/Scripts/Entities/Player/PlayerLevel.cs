@@ -107,12 +107,12 @@ public class PlayerLevel : MonoBehaviour
                 case UpgradeSO.AttachedType.NotAttachable:
                     break;
                 default:
-                    var pos = gameObject.transform.position;
+                    GameObject parent = FindObjectOfType<WeaponParent>().gameObject;
                     GameObject prefab = Resources.Load<GameObject>(reference.PrefabPath);
-                    prefab.GetComponent<Weapon>().weaponName = reference.nameUpgd;
-                    prefab.GetComponent<Weapon>().aType = reference.attachedType;
-                    prefab.GetComponent<Weapon>().attackDamage = (int)reference.value;
-                    Instantiate(prefab, new Vector3(pos.x, pos.y + 1.4f, 0), Quaternion.identity, gameObject.transform);
+                    prefab.GetComponentInChildren<Weapon>().weaponName = reference.nameUpgd;
+                    prefab.GetComponentInChildren<Weapon>().aType = reference.attachedType;
+                    prefab.GetComponentInChildren<Weapon>().attackDamage = (int)reference.value;
+                    Instantiate(prefab, new Vector3(parent.transform.position.x, parent.transform.position.y, 0), Quaternion.identity, parent.transform);
                 break;
             }
         }

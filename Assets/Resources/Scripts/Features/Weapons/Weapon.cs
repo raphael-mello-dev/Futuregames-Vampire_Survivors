@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -9,18 +10,22 @@ public class Weapon : MonoBehaviour
     public int TotalDamage { get { return parent.GetComponent<PlayerAttack>().attackDamage + attackDamage; } }
 
     private GameObject parent;
+    public GameObject prefabParent;
 
     [SerializeField] private float distanceFromPlayer = 1.5f;
     [SerializeField] private float rotationSpeedPjtls = 20.0f;
-    [SerializeField] private float rotationSpeedOrbits = 40.0f;
     [SerializeField] private float offsetPjtls = -90f;
-    [SerializeField] float offsetOrbits = -270f;
 
     private float angle;
+
+    public static event Action OnOrbitAttacked;
 
     private void Start()
     {
         parent = GameObject.FindGameObjectWithTag("Player");
+
+        if (weaponName == "Normal Sword")
+            FindObjectOfType<WeaponParent>().swordWeapons.Add(this);
     }
 
     private void OnEnable()
@@ -31,7 +36,7 @@ public class Weapon : MonoBehaviour
 
     void OnDisable()
     {
-       Destroy(gameObject);
+       Destroy(prefabParent);
     }
 
     void Update()
@@ -48,7 +53,7 @@ public class Weapon : MonoBehaviour
                 ProjectileWeaponMove();
                 break;
             case UpgradeSO.AttachedType.OrbitsAround:
-                OrbitWeaponMove();
+                OnOrbitAttacked?.Invoke();
                 break;
         }
     }
@@ -59,26 +64,6 @@ public class Weapon : MonoBehaviour
         {
             other.GetComponent<EnemyBase>().OnTakeDamage(TotalDamage);
         }
-    }
-
-    private void OrbitWeaponMove()
-    {
-        angle += rotationSpeedOrbits * Time.deltaTime;
-        float radian = angle * Mathf.Deg2Rad;
-
-        float x = parent.transform.position.x + Mathf.Cos(radian) * distanceFromPlayer;
-        float y = parent.transform.position.y + Mathf.Sin(radian) * distanceFromPlayer;
-
-        transform.position = new Vector3(x, y, transform.position.z);
-
-        PointWeaponAtPlayer();
-    }
-
-    private void PointWeaponAtPlayer()
-    {
-        Vector3 direction = parent.transform.position - transform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle + offsetOrbits));
     }
 
     private void ProjectileWeaponMove()
