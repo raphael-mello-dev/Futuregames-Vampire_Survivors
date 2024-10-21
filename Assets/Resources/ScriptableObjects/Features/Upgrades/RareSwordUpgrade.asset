@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ebe35a6aa4bbdc4eb6902e39173a4c5, type: 3}
-  m_Name: MinHealthUpgrade
+  m_Name: RareSwordUpgrade
   m_EditorClassIdentifier: 
-  nameUpgd: Min Health
-  description: Slightly increases max health of the player
-  sprite: {fileID: 21300000, guid: 5f80128cffc820e48a96208d2e6a28b6, type: 3}
-  type: 1
-  attachedType: 0
-  statType: 2
-  value: 2
-  prefabName: 
+  nameUpgd: Rare Sword
+  description: A sword that moves around the player
+  sprite: {fileID: 21300000, guid: 5b007106a70b4ea4b875531b2efcfbac, type: 3}
+  type: 0
+  attachedType: 1
+  statType: 0
+  value: 5
+  prefabName: RareSword

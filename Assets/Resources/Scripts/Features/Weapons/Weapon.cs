@@ -12,9 +12,9 @@ public class Weapon : MonoBehaviour
     private GameObject parent;
     public GameObject prefabParent;
 
-    [SerializeField] private float distanceFromPlayer = 1.5f;
-    [SerializeField] private float rotationSpeedPjtls = 20.0f;
-    [SerializeField] private float offsetPjtls = -90f;
+    private float distanceFromPlayer = 1.5f;
+    private float rotationSpeedPjtls = 20.0f;
+    private float offsetPjtls = -90f;
 
     private float angle;
 
@@ -24,7 +24,7 @@ public class Weapon : MonoBehaviour
     {
         parent = GameObject.FindGameObjectWithTag("Player");
 
-        if (weaponName == "Normal Sword")
+        if (weaponName.Contains("Sword"))
             FindObjectOfType<WeaponParent>().swordWeapons.Add(this);
     }
 

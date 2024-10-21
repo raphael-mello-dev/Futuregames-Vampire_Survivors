@@ -31,7 +31,7 @@ public class UpgradeSO : ScriptableObject
     public StatType statType;
     public float value;
 
-    [SerializeField] private string prefabName;
+    public string prefabName;
     public string PrefabPath
     {
         get { return $"Prefabs/Weapons/{prefabName}"; }

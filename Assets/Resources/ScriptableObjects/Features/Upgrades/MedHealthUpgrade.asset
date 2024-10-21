@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ebe35a6aa4bbdc4eb6902e39173a4c5, type: 3}
-  m_Name: MinHealthUpgrade
+  m_Name: MedHealthUpgrade
   m_EditorClassIdentifier: 
-  nameUpgd: Min Health
-  description: Slightly increases max health of the player
+  nameUpgd: 'Med Health '
+  description: Increases max health of the player
   sprite: {fileID: 21300000, guid: 5f80128cffc820e48a96208d2e6a28b6, type: 3}
   type: 1
   attachedType: 0
   statType: 2
-  value: 2
+  value: 5
   prefabName: 

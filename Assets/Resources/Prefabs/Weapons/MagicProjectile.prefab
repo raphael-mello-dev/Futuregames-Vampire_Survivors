@@ -161,4 +161,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f8e836fa1f92d34096f3dc6d54a9344, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponParentName: NormalMace
   speed: 4
